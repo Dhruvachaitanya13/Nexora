@@ -19,6 +19,7 @@ from app.api.v1.endpoints import (
     reports,
     dashboard,
     webhooks,
+    chicago,
 )
 
 api_router = APIRouter()
@@ -41,3 +42,4 @@ api_router.include_router(automations.router, prefix="/automations", tags=["Auto
 api_router.include_router(reports.router, prefix="/reports", tags=["Reports"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
 api_router.include_router(webhooks.router, prefix="/webhooks", tags=["Webhooks"])
+api_router.include_router(chicago.router, prefix="/chicago", tags=["Chicago Hub"])

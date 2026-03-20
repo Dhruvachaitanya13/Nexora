@@ -16,7 +16,6 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/auth';
-import { useThemeStore, type Theme } from '../../store/theme';
 import { cn, getInitials } from '../../lib/utils';
 import Button from '../ui/Button';
 
@@ -779,48 +778,6 @@ function UpgradeModal({
 }
 
 // ============================================
-// THEME PICKER
-// ============================================
-
-const THEMES: { id: Theme; label: string; color: string }[] = [
-  { id: 'indigo',  label: 'Indigo',  color: '#6366f1' },
-  { id: 'violet',  label: 'Violet',  color: '#8b5cf6' },
-  { id: 'emerald', label: 'Emerald', color: '#10b981' },
-  { id: 'cyan',    label: 'Cyan',    color: '#06b6d4' },
-  { id: 'rose',    label: 'Rose',    color: '#f43f5e' },
-  { id: 'amber',   label: 'Amber',   color: '#f59e0b' },
-];
-
-function ThemePicker({ isCollapsed }: { isCollapsed: boolean }) {
-  const { theme, setTheme } = useThemeStore();
-
-  if (isCollapsed) return null;
-
-  return (
-    <motion.div variants={itemVariants} initial="collapsed" animate="expanded" exit="collapsed"
-      className="mx-3 px-4 py-3 bg-dark-800/40 border border-dark-700/60 rounded-xl">
-      <p className="text-xs font-semibold text-dark-500 uppercase tracking-wider mb-3">Accent Color</p>
-      <div className="flex items-center gap-2.5">
-        {THEMES.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setTheme(t.id)}
-            title={t.label}
-            className={cn(
-              'w-5 h-5 rounded-full transition-all duration-200 flex-shrink-0',
-              theme === t.id
-                ? 'ring-2 ring-white ring-offset-2 ring-offset-dark-900 scale-110'
-                : 'opacity-50 hover:opacity-90 hover:scale-105',
-            )}
-            style={{ backgroundColor: t.color }}
-          />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-// ============================================
 // UPGRADE BANNER
 // ============================================
 
@@ -945,7 +902,6 @@ export default function Sidebar({
         </nav>
 
         <div className="py-3"><QuickStats isCollapsed={isCollapsed && !isMobile} /></div>
-        <div className="py-2"><ThemePicker isCollapsed={isCollapsed && !isMobile} /></div>
         <div className="py-3"><UpgradeBanner isCollapsed={isCollapsed && !isMobile} /></div>
         <div className="p-3 border-t border-dark-800"><UserMenu isCollapsed={isCollapsed && !isMobile} /></div>
       </motion.aside>
